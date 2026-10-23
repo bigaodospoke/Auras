@@ -1,0 +1,20 @@
+# Gradle
+.gradle/
+build/
+
+# Execuções de desenvolvimento (mundos de teste, saída das IDEs, mods só para testar)
+run/
+bin/
+fabric/libs-teste/
+
+# Prévias locais (as imagens do README ficam em docs/)
+gifs/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.iml

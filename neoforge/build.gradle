@@ -1,0 +1,71 @@
+plugins {
+    id 'net.neoforged.moddev'
+}
+
+base {
+    archivesName = "${mod_id}-neoforge-${minecraft_version}"
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_version
+        minecraftVersion = project.minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        // gradlew :neoforge:runAutoteste -> abre um mundo plano, liga cada aura e tira prints
+        autoteste {
+            client()
+            systemProperty 'auras.autoteste', 'true'
+            systemProperty 'auras.autoteste.auras', (project.findProperty('autotesteAuras') ?: '').toString()
+            systemProperty 'auras.autoteste.quadros', (project.findProperty('autotesteQuadros') ?: '60').toString()
+            programArguments.addAll '--width', '1280', '--height', '720'
+            gameDirectory = project.file('run/autoteste')
+        }
+        // gradlew :neoforge:runServidorTeste -> sobe um servidor dedicado com o mod e desliga sozinho
+        servidorTeste {
+            server()
+            programArgument '--nogui'
+            systemProperty 'auras.autoteste', 'true'
+            systemProperty 'auras.autoteste.parar', 'true'
+            gameDirectory = project.file('run/servidorteste')
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var replaceProperties = [
+            minecraft_version: minecraft_version,
+            neo_version      : neo_version,
+            mod_id           : mod_id,
+            mod_name         : mod_name,
+            mod_license      : mod_license,
+            mod_version      : mod_version,
+            mod_authors      : mod_authors,
+            mod_description  : mod_description
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata

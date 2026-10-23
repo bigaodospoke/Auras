@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "auras",
+  "version": "${version}",
+  "name": "Auras",
+  "description": "12 auras animadas em volta dos jogadores, de raios e fogo até lorde vampiro, necromante e pokébola.",
+  "authors": ["bigao"],
+  "license": "All Rights Reserved",
+  "icon": "assets/auras/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.auras.fabric.AurasFabric"],
+    "client": ["com.auras.fabric.AurasFabricCliente"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

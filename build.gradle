@@ -1,0 +1,28 @@
+plugins {
+    // Os dois plugins ficam declarados aqui para carregarem no mesmo classloader
+    id 'fabric-loom' version '1.17.21' apply false
+    id 'net.neoforged.moddev' version '2.0.148' apply false
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    version = mod_version
+    group = mod_group
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+    // Codigo e recursos compartilhados entre Fabric e NeoForge (so Minecraft puro, sem API de loader)
+    sourceSets.main.java.srcDir rootProject.file('common/src/main/java')
+    sourceSets.main.resources.srcDir rootProject.file('common/src/main/resources')
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 21
+    }
+
+    // O autoteste so existe nas execucoes de desenvolvimento, nunca vai para o jar
+    tasks.named('jar') {
+        exclude 'com/auras/teste/**'
+    }
+}
