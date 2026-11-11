@@ -110,3 +110,7 @@ Os jars saem em `fabric/build/libs/auras-fabric-1.21.1-<versão>.jar` e
 - Na aura Pokébola, os modelos, as texturas e os sons são lidos do próprio [Cobblemon](https://cobblemon.com)
   quando ele está instalado; nada dele vem dentro do mod.
 - Projeto de fã, sem vínculo com Mojang, Microsoft, Cobblemon, Nintendo, Game Freak ou The Pokémon Company.
+
+## Licença / License
+
+Copyright (c) 2026 Kauã Batista do Nascimento ([bigaodospoke](https://github.com/bigaodospoke)). **Todos os direitos reservados / All rights reserved.** Veja o arquivo [LICENSE](LICENSE).
